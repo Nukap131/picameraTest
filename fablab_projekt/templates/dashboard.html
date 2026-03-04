@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fablab Person Tæller</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial; margin: 40px; background: #1a1a1a; color: white; }
+        .stats { display: flex; gap: 20px; }
+        .stat { background: #333; padding: 20px; border-radius: 10px; text-align: center; }
+        .big { font-size: 3em; color: #00ff88; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #444; }
+        th { background: #333; }
+        .arrow { font-size: 1.5em; }
+        .download-btn { 
+            background: #00ff88; color: black; padding: 10px 20px; 
+            text-decoration: none; border-radius: 5px; margin: 5px;
+            font-weight: bold;
+        }
+        .download-btn:hover { background: #00cc70; }
+    </style>
+</head>
+<body>
+    <h1>🏭 FABLAB PERSON TÆLLER</h1>
+    
+    <div class="stats">
+        <div class="stat">
+            <div class="big">{{ total }}</div>
+            <div>Total ind</div>
+        </div>
+        <div class="stat">
+            <div class="big">{{ today }}</div>
+            <div>I dag</div>
+        </div>
+    </div>
+    
+    <h2>Seneste passager</h2>
+    <table>
+        <tr><th>Tid</th><th>ID</th><th>Retning</th><th>Total</th></tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event[0] }}</td>
+            <td>{{ event[1] }}</td>
+            <td><span class="arrow">{{ event[2] }}</span></td>
+            <td>{{ event[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <h3>💾 Download data</h3>
+    <p>
+        <a href="/download/csv" class="download-btn">📥 Download CSV</a>
+        <a href="/download/json" class="download-btn">📥 Download JSON</a>
+    </p>
+    
+    <p><small>
+        <a href="/api" target="_blank">JSON API</a> | 
+        Database: fablab_people.db ({{ total }} entries)
+    </small></p>
+</body>
+</html>
